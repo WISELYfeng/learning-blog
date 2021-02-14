@@ -19,3 +19,9 @@ JavaScript一经发布，其简单灵活的语法，易用的函数，使得很�
 在2010年后，随着智能机的推广，移动端开发需求使得JavaScript再上一层台阶。开发者们研究出了响应式的前端开发库，还有三维图形库。`node`的出现使前端开发者们也具备了服务端开发能力，甚至现在还能使用JavaScript开发爬虫、游戏等项目。可以说JavaScript虽然有令人头痛的缺点，却也有蓬勃的生命力。****
 
 未来会不会任何需要编程的项目都能使用JavaScript开发？让我们拭目以待。
+
+## 其他
+
+给自己看的，避免踩坑。 :P
+
+[JavaScript的奇怪坑](http://www.ruanyifeng.com/blog/2011/06/10_design_defects_in_javascript.html)
