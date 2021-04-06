@@ -6,16 +6,19 @@
 
 vue有两个版本：一种是完整版，另一种是非完整版,两者有40%左右的代码体积差别。
 
-区别：
+### 区别：
 
 + 文件名：
 
   完整版：vue.js。
+
   非完整版：vue.runtime.js。
   >投入生产时使用*.min.js后缀的文件。
 
 + 编译：
+  
   完整版：有complier,可以将html或template直接转为视图。
+
   非完整版：没有complier,需要使用vue-loader配合vue文件转为视图。
 
   ``` javascript
