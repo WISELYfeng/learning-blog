@@ -12,7 +12,7 @@
 + setter
 
     当尝试设置属性时，`set`语法将对象属性绑定到要调用的函数。
-    
+
 ``` javascript
     let obj1 = {
         name: "jellyfish",
