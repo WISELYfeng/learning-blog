@@ -111,4 +111,38 @@ for(let i=0; i<10; i++){
 
 本章还有一些有趣的技巧，详见书本内容。
 
+## 第四章 提升
 
+### 4.1 声明
+
+声明操作会被提到最前，比如:
+
+```javascript
+a = 2
+var a
+console.log(a)  // 输出2
+```
+
+另外就是，函数也是，函数声明会提升，函数表达式的赋值操作不会，比如：
+```javascript
+foo()  // 输出 foo
+function foo(){
+    console.log('foo')
+}
+```
+
+```javascript
+foo()  // TypeError
+var foo = function(){
+    console.log('foo')
+}
+```
+
+由于变量标识符被提升并分配给所在作用域，因此`foo()`不会导致ReferenceError，但是`foo`并没有赋值，相当于对undefined值进行调用，因此抛出TypeError异常。
+
+这就是js引擎的编译逻辑，声明会提升，而赋值或其它操作的位置在原地，注意避免提升影响代码执行顺序。
+
+
+### 变量与函数提升的顺序
+
+函数会被首先提升，然后是变量。重复声明的函数会被覆盖。
