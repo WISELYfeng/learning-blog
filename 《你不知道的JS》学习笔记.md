@@ -157,4 +157,74 @@ var foo = function(){
 
 使用回调函数，实际上就是在使用闭包。
 
+当函数可以记住并访问所在的词法作用域，即使函数是在当前词法作用域之外执行，这时就产生了闭包。
+
 ### 5.2 模块
+
+模块模式：
+1.必须有外部的封闭函数，该函数至少被调用一次（每次调用都会创建一个新的模块实例）。
+2.封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态。
+
+### 5.2 现代的模块机制
+
+一个封装的模块案例：
+```javascript
+var MyMouldes = (function Manager(){
+    var modules = {}
+    function define(name, deps, impl) {
+        for(var i=0; i<deps.length; i++){
+            deps[i] = modules[deps[i]]
+        }
+        modules[name] = impl.apply(impl, deps)
+    }
+    
+    function get(name) {
+        return modules[name]
+    }
+     return {
+         define: define,
+         get: get
+     }
+})()
+```
+
+这段代码的核心是`modules[name] = impl.apply(impl, deps)`，为模块的定义引入了包装函数，并且将模块的API存储在一个根据名字管理的模块列表中。
+使用这段代码来定义模块：
+
+```javascript
+MyModules.define("bar", [], function(){
+    function hello(who){
+        return "Let me introduce:" + who 
+    }
+    return {
+        hello: hello
+    }
+})
+
+MyModules.define("foo", ["bar"], function(bar){
+    var hungry = "hippo"
+    function awesome(){
+        console.log(bar.hello(hungry).toUpperCase())
+    }
+    return {
+        awsome: awesome
+    }
+})
+
+var bar = MyModules.get("bar")
+var foo = MyModules.get("foo")
+
+console.log( bar.hello("hippo")) // Let me introduce: hippo
+foo.awsome() // LET ME INTRODUCE: HIPPO
+```
+
+foo和bar都是通过返回公共API定义的模块，并且foo可以接受bar的实例作为参数并使用。
+
+模块模式的特点：（1）为创建内部作用域而调用了一个包装函数 （2）包装函数的返回值必须至少包括一个对内部函数的引用，这样就会创建涵盖整个包装
+函数内部作用域的闭包。
+
+### 5.3 模块的导出机制
+
++ import可以将一个模块中的一个或多个API导入到当前作用域中，并分别绑定在一个变量上。
++ module会将整个模块的API导入并绑定到一个变量上。
++ export会将当前模块的一个标识符（变量、函数）导出为公共API。
